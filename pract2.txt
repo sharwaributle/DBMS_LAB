@@ -1,0 +1,51 @@
+1.alter table department modify name varchar2(30);
+
+2.alter table department modify building varchar2(30) not null;
+
+3.alter table tablename rename field to newfield; 
+
+4.select * from department;
+  select * from instructor;
+
+5.update instructor set salary = salary + salary * .1 where dept_id = (select dept_id from department where name = 'History');
+
+6.update instructor set salary = salary + salary * 5/100 where salary < 80000;
+
+7.update instructor set salary = salary - salary * 5/100 where salary > 80000 and salary < 85000; #condition is salary is above 80000 but below deduce 5%
+
+8.create a new course "CS-001", titled "Weekly seminar", with 1 credits.
+  desc course;
+  select * from course;
+insert into course (course_id , title, dept_id, credits) values ('CS-001', 'Weekly Seminar', 1 , 1);
+
+9.insert into section (section_id, course_id, sec_id, semester, year) values (8, 'CS-001',1,'FALL',2017);
+insert into section (section_id, course_id, sec_id, semester, year ,building, room_number, time_slot_id ) values (8, 'CS-001',1,'FALL',2017, NULL, NULL, NULL);
+
+10. to delete tuple:
+delete from table where condition;
+
+11.to create a sequence 
+create sequence emp_seq start with 1 increment by 1;
+now create table :
+create table emp (emp_seq int primary key, name varchar2(20), mobile int);
+insert into emp values (emp_seq.nextval,'xyz',8457846525);
+insert into emp values (emp_seq.nextval,'xyz1',8457846525);
+insert into emp values (emp_seq.nextval,'xyz2',8457846525);
+insert into emp values (emp_seq.nextval,'xyz3',8457846525);
+insert into emp values (emp_seq.nextval,'xyz4',8457846525);
+insert into emp values (emp_seq.nextval,'xyz5',8457846525);
+insert into emp values (emp_seq.nextval,'xyz6',8457846525);
+insert into emp values (emp_seq.nextval,'xyz7',8457846525);
+insert into emp values (emp_seq.nextval,'xyz8',8457846525);
+insert into emp values (emp_seq.nextval,'xyz9',8457846525);
+insert into emp values (emp_seq.nextval,'xyz10',8457846525);
+select * from emp_seq;
+
+select max(emp_seq)from emp;
+drop sequence emp_seq;
+
+to rename the table: rename emp to employee;
+to rename the field: alter table employee rename column mobile to mobilenumber;
+
+12.Alter table employee add pincode number(6);
+truncate table employee;
