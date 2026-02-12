@@ -1,0 +1,95 @@
+join: 1. Inner join- only matching attribute are selected.
+      2.left join - left side is compared.
+      3.Right Join- right side is compared.
+select * from instructor where dept_id=(select dept_id from department where name = 'Computer Science');
+
+USING JOIN- select i.instructor_id , i.Name , i.salary, d.name from instructor i join department d on i.dept_id = d.dept_id where d.name = 'Computer Science';
+
+a) Avg salary:
+select d.name ,avg(i.salary) as AVG_SAL from instructor i join department d on i.dept_id = d.dept_id where d.name = 'Computer Science'group by d.name;
+
+b)Avg salary in each department: 
+select d.name , avg(i.salary) as AVG_SAL from department d join instructor i on d.dept_id = i.dept_id group by d.name;
+
+c)total salary of all teachers earning more than 30K:
+select sum(salary) as toatl_salary from instructor where salary > 30000;
+
+CREATE TABLE STUDENT (
+    student_id NUMBER(38) PRIMARY KEY,
+    name       VARCHAR2(50) NOT NULL,
+    tot_cred   NUMBER(3)
+);
+
+INSERT INTO STUDENT VALUES (101, 'Arjun', 20);
+INSERT INTO STUDENT VALUES (102, 'Meera', 22);
+INSERT INTO STUDENT VALUES (106, 'Rahul', 18);
+INSERT INTO STUDENT VALUES (107, 'Sneha', 19);
+INSERT INTO STUDENT VALUES (108, 'Kiran', 21);
+
+CREATE TABLE ENROLLMENT (
+    enrollment_id INT PRIMARY KEY,
+    student_id INT NOT NULL,
+    section_id INT NOT NULL,
+    enrollment_date DATE,
+    status VARCHAR(20) DEFAULT 'ENROLLED',
+    FOREIGN KEY (student_id) REFERENCES STUDENT(student_id),
+    FOREIGN KEY (section_id) REFERENCES SECTION(section_id)
+);
+
+INSERT INTO ENROLLMENT VALUES (1, 101, 1, DATE '2024-07-01', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (2, 102, 1, DATE '2024-07-01', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (3, 101, 2, DATE '2024-07-02', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (4, 102, 2, DATE '2024-07-02', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (5, 106, 3, DATE '2024-07-03', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (6, 107, 4, DATE '2024-07-03', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (7, 108, 5, DATE '2024-07-04', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (8, 101, 6, DATE '2024-07-04', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (9, 102, 7, DATE '2024-07-05', 'ENROLLED');
+INSERT INTO ENROLLMENT VALUES (10,106, 7, DATE '2024-07-05', 'ENROLLED');
+
+d)List the number of students enrolled in each course:
+SELECT C.Course_id, C.Title, COUNT(E.Student_id) AS Enrolled_Students FROM Course C LEFT JOIN SECTION S ON C.course_id = S.course_id LEFT JOIN Enrollment E ON S.section_id = E.section_id GROUP BY C.Course_id, C.Title;
+
+e)select * from department where lower(name) like '%sci%';
+select * from department where lower(name) like '%science%';
+
+g) to calculate length of names of students
+select length(name) from student;
+
+h) Retrieve total number of instructors:
+SELECT COUNT(*) AS TotalInstructors
+FROM Instructor;
+
+I)alter table instructor add hiredate date;
+update instructor set hiredate =date'2021-01-30' where instructor_id = 1;
+update instructor set hiredate =date'2021-06-30' where instructor_id = 2;
+update instructor set hiredate =date'2021-06-20' where instructor_id = 3;
+update instructor set hiredate =date'2021-05-20' where instructor_id = 4;
+update instructor set hiredate =date'2021-05-28' where instructor_id = 5;
+update instructor set hiredate =date'2021-09-28' where instructor_id = 6;
+update instructor set hiredate =date'2021-09-08' where instructor_id = 7;
+update instructor set hiredate =date'2021-10-08' where instructor_id = 8;
+
+select * from instructor where hiredate > add_months(sysdate, -60);
+
+j)select *from  instructor where hiredate > date'2021-01-01' and hiredate < '2022-06-30';
+
+set linesize 150
+
+k) Display name of those instructors who are going to retire 01-Jan-24 if the maximum job period is 18 years:
+   select * from instructor where hiredate < date '2024-01-01' nad hiredate < add_months(sysdate, -62);
+
+l) Display those instructors whose salary contains at least 4 digits:
+   select name ,salary from instructor where salary >= 75000 and length(salary)>=4;
+
+m) Print a list of instructors displaying 'Less Salary' if less than 60000, 'Exact Salary' if exactly 60000, and 'More Salary' if greater than 60000:
+   select name , case when salary < 60000 then 'less salary' when salary....... end as salary_category; from instructor select name, avg
+
+n) Display names of all the instructors concatenated with their department names.
+   select i.name || '=>'|| d.name from instructor i join department d on i.dept_id = d.dept_id;
+
+o) retrieve distinct number of instructor from each department ;
+   select d.name, count(i.name) from instructor i join department d on i.dept_id = d.dept_id group by d.name;
+
+p) Find the names of all instructors whose salary is greater than at least one instructor in the Biology department.
+   select i1.name ,i1.salary from instructor i1 where i1.salary >=(select i2.salary from instructor i2 join department d on i2.dept_id = d.dept_id where d.name ='Biology');
