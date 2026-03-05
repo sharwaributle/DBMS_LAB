@@ -1,0 +1,29 @@
+1. Display all employee names that starts when "a" and at ;least 3 characters in length. 
+select first_name , last_name from employee1 where lower(first_name) like 'a%' and length (first_name)>4;
+
+2.select * from departments_1 where lower(location) = 'dallas' or lower(location) = 'dallas' or lower(location) = 'new york' or lower(location) = 'chicago';
+
+3.Display the names of employees who are working as clerk , salesman or analyst and drawing a salary more than 3000.
+select FIRST_NAME,job, salary from emp where lower(job) IN ('clerk' , 'salesman') an salary>=3000;
+
+4.Display the names of employees who are not working as manager.
+select First_name, job from emp where lower(job)! = 'manager1';
+
+5.Display the name of emp who earns highest salary 
+select First_name , max(salary) from employee1;
+
+6.Display the employee number and name of employee working as CLERK and earning highest salary among CLERKS.
+SELECT emp_no, first_name, salary
+FROM employee1
+WHERE salary = (SELECT MAX(salary) FROM employee1);
+
+7. Display the names of clerks who earn salary lesser than that of James of that of more than that of Bob.
+SELECT emp_no, first_name, salary from emp where lower(job) = 'clerk' and salary > (select salary from emp where lower(First_name) ='bob') and salary < (select salary from emp where lower(First_name) = 'james');
+
+8. Display the names of the employees who earns highest salary in their respective departments.
+SELECT first_name, job , salary , deptno from emp;
+
+select i.first_name , i.last_name , i.salary from emp i where i.salary from emp i where i.salary IN(select max(i2.salary) from emp i2 where i2.deptno = i.deptno);
+
+9.Display those employees who are working in the same dept where his manager is working.
+select i.first_name, i.last_name, i.salary from emp i where i.salary = (select max(i2.salary) from emp i2 where i2. deptno = i.deptno);
