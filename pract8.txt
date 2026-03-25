@@ -1,0 +1,51 @@
+if there are marks of 4 subjects
+1) check for pass condition each subject must be of 50 marks 
+2) check for a) distinction of above 75%
+b) first 60%
+c) second 50%
+
+case 1 cs = 75
+m1 = 45
+m2 = 52
+m3 = 75
+
+case 2 cs = 75
+m1 = 79
+m2 = 100
+m3 = 95
+
+
+
+CREATE OR REPLACE PROCEDURE markof4subjects
+AS
+    cs NUMBER := 75;
+    m1 NUMBER := 79;
+    m2 NUMBER := 100;
+    m3 NUMBER := 95;
+    total NUMBER;
+    per NUMBER;
+BEGIN
+
+    total := cs + m1 + m2 + m3;
+    per := (total/400)*100;
+
+    DBMS_OUTPUT.PUT_LINE('Total Marks: ' || total);
+    DBMS_OUTPUT.PUT_LINE('Percentage: ' || per);
+
+    IF cs<50 OR m1<50 OR m2<50 OR m3<50 THEN
+        DBMS_OUTPUT.PUT_LINE('Result: FAIL');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Result: PASS');
+
+        IF per > 75 THEN
+            DBMS_OUTPUT.PUT_LINE('Class: Distinction');
+        ELSIF per >= 60 THEN
+            DBMS_OUTPUT.PUT_LINE('Class: First Class');
+        ELSIF per >= 50 THEN
+            DBMS_OUTPUT.PUT_LINE('Class: Second Class');
+        END IF;
+
+    END IF;
+
+END;
+/
