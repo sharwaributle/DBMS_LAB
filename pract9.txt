@@ -1,0 +1,10 @@
+PROCEDURE TO DISPLAY THE CONTENT OF THE TABLE: ST_INFO
+
+create or procedure st_show
+as
+s_roll st_info.roll%type
+s_name st_info.name%type
+s_sub1 st_info.sub1%type
+s_sub2 st_info.sub2%type
+s_sub3 st_info.sub3%type
+s_sub4 st_info.sub4%type
