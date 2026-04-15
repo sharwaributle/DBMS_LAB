@@ -1,0 +1,38 @@
+Practical 11
+
+
+CREATE OR REPLACE FUNCTION SQL_FUNC(n IN NUMBER)
+RETURN VARCHAR2
+AS
+  c NUMBER;
+BEGIN
+  c := n * n;
+  RETURN 'SQUARE OF ' || n || ' = ' || c;
+END;
+/
+Output: Function created.
+
+SELECT SQL_FUNC(5) FROM dual;
+Output: SQL_FUNC(5)
+--------------------------------------------------------------------------------
+SQUARE OF 5 = 25
+
+
+CREATE OR REPLACE FUNCTION reverse_number (
+    n NUMBER
+) RETURN NUMBER
+IS
+    rev NUMBER := 0;
+    rem NUMBER;
+    temp NUMBER := n;
+BEGIN
+    WHILE temp > 0 LOOP
+        rem := MOD(temp, 10);
+        rev := rev * 10 + rem;
+        temp := TRUNC(temp / 10);
+    END LOOP;
+
+    RETURN rev;
+END;
+/
+Output:Function created.
