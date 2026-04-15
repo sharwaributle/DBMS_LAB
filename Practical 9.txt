@@ -1,0 +1,68 @@
+Practical 9
+
+procedure to display the content of the table: st_info
+
+create or replace procedure st_show
+as
+s_roll st_info.roll%type;
+s_name st_info.name%type;
+s_sub1 st_info.sub1%type;
+s_sub2 st_info.sub2%type;
+s_sub3 st_info.sub3%type;
+s_sub4 st_info.sub4%type;
+begin
+   select roll, name, sub1, sub2, sub3, sub4 into s_roll, s_name, s_sub1, s_sub2, s_sub3, s_sub4 from st_info;
+    dbms_output.put_line('Roll no : ' || s_roll); 
+    dbms_output.put_line('Name of the student : ' || s_name); 
+    dbms_output.put_line('Marks of sub1 : ' || s_sub1); 
+    dbms_output.put_line('Marks of sub2 : ' || s_sub2); 
+    dbms_output.put_line('Marks of sub3 : ' || s_sub3); 
+    dbms_output.put_line('Marks of sub4 : ' || s_sub4); 
+end;
+/
+
+select max(roll) from st_info;
+MAX(ROLL)
+----------
+        10
+
+create or replace procedure st_show
+as
+s_roll st_info.roll%type;
+s_name st_info.name%type;
+s_sub1 st_info.sub1%type;
+s_sub2 st_info.sub2%type;
+s_sub3 st_info.sub3%type;
+s_sub4 st_info.sub4%type;
+begin
+   select roll, name, sub1, sub2, sub3, sub4 into s_roll, s_name, s_sub1, s_sub2, s_sub3, s_sub4 from st_info where roll = rno;
+    dbms_output.put_line('Roll no : ' || s_roll); 
+    dbms_output.put_line('Name of the student : ' || s_name); 
+    dbms_output.put_line('Marks of sub1 : ' || s_sub1); 
+    dbms_output.put_line('Marks of sub2 : ' || s_sub2); 
+    dbms_output.put_line('Marks of sub3 : ' || s_sub3); 
+    dbms_output.put_line('Marks of sub4 : ' || s_sub4); 
+
+exec show_st(2)
+output:
+Roll no : 2
+Name of the student : Rahul
+Marks of sub1 : 60
+Marks of sub2 : 65
+Marks of sub3 : 58
+Marks of sub4 : 72
+
+SELECT name,
+       (sub1+sub2+sub3+sub4) AS total,
+       (sub1+sub2+sub3+sub4)/4 AS perc,
+       CASE 
+           WHEN sub1>=40 AND sub2>=40 AND sub3>=40 AND sub4>=40 THEN 'PASS'
+           ELSE 'FAIL'
+       END AS result
+FROM st_info
+WHERE name = 'Amit';
+
+
+NAME                                TOTAL       PERC RESU
+------------------------------ ---------- ---------- ----
+Amit                                  293      73.25 PASS
